@@ -6,28 +6,29 @@
 - 二级预测：`TAGE`
 - 当前 BTB/RAS 关系：BTB 存储目标和类型位 `cond/call/ret/jump`，RAS 只维护返回地址栈
 
-新增接口(BPU)：
-    input flush,  // flush 时清空 S1 事件，避免 stale correction
-    output correct_valid,      // L2 覆盖 L1（针对落后 1 拍的取指）
-    output correct_taken,      // TAGE 方向
-    output [31:0] correct_npc, // 纠正 NPC = btb_target 或 branch_pc+4
-    output [31:0] correct_pc,  // 被纠正分支 PC（供 IFU FIFO 匹配）
-    //TAGE 预测 metadata（输出，C2 有效，后续锁进流水携带）
-    output tage_meta_valid,
-    output [`TAO_TAGE_META_W-1:0] tage_meta,
-    //TAGE 提交 metadata（输入，用于更新）
-    input tage_upd_valid,      // = actural_valid & actural_cond
-    input tage_upd_taken,      // = actural_taken
-    input [`TAO_TAGE_META_W-1:0] tage_upd_meta
+### BPU 新增接口
+```verilog
+input  flush,                    // flush 时清空 S1 事件，避免 stale correction
 
+output correct_valid,            // L2 覆盖 L1（针对落后 1 拍的取指）
+output correct_taken,            // TAGE 方向
+output [31:0] correct_npc,       // 纠正 NPC = btb_target 或 branch_pc+4
+output [31:0] correct_pc,        // 被纠正分支 PC（供 IFU FIFO 匹配）
 
-BPU该怎么和IFU的FIFO交互未确定；
-BPU需要接BP_flush(BPU流水架构，里面的寄存器需要清空)
+// TAGE 预测 metadata（输出，C2 有效，后续锁进流水携带）
+output tage_meta_valid,
+output [`TAO_TAGE_META_W-1:0] tage_meta,
 
-BPU中的`tage_meta`和`tage_meta_valid`(由于TAGE而新增的)需要随流水线进入EXU
-EXU中的TAGE metadata 需要传回 IFU/BPU 更新侧
-
-tao_define.v中也需要添加一部分
+// TAGE 提交 metadata（输入，用于更新）
+input  tage_upd_valid,           // = actual_valid & actual_cond
+input  tage_upd_taken,           // = actual_taken
+input  [`TAO_TAGE_META_W-1:0] tage_upd_meta
+```
+- BPU 与 IFU FIFO 的交互方式目前尚未确定。
+- BPU 新增 `flush`（即 `BP_flush`）接口，用于清空 BPU 内部流水寄存器（如 S1），避免错误路径预测继续传播。
+- `tage_meta` 和 `tage_meta_valid` 需要随流水线一起传递到 EXU。
+- EXU 在分支执行完成后，需要将对应的 TAGE metadata 回传给 IFU/BPU，用于 TAGE 更新。
+- `tao_define.v` 中需要增加 TAGE metadata 的相关宏定义。
 
 ## BPU 顶层端口
 

@@ -1,4 +1,5 @@
-##coremark
+## coremark
+```text
 [perf]  cycles=451416439 inst=318235148 time=303.662 s
 [CPI] 1.42
 [ifu]
@@ -79,8 +80,9 @@
     目标预测错误率         : 0.000000
     乘法平均周期           : 3.000000
     除法平均周期           : 32.875000
-
-##jyd_inst
+```
+## jyd_inst
+```text
 [perf]  cycles=36090373 inst=30758616 time=25.381 s
 [CPI] 1.17
 [ifu]
@@ -161,8 +163,9 @@
     目标预测错误率         : 0.000000
     乘法平均周期           : 0.000000
     除法平均周期           : 0.000000
-
-##jyd_src0
+```
+## jyd_src0
+```text
 [perf]  cycles=2275540381 inst=1417754160 time=2736.563 s
 [CPI] 1.61
 [ifu]
@@ -244,8 +247,9 @@
     乘法平均周期           : 0.000000
     除法平均周期           : 0.000000
 make[1]: 离开目录“/home/watersss/JYD-RAS-V2/JYD-contest/npc”
-
-##jyd_src1
+```
+## jyd_src1
+```text
 [perf]  cycles=2477887190 inst=1304108429 time=2791.581 s
 [CPI] 1.90
 [ifu]
@@ -326,8 +330,9 @@ make[1]: 离开目录“/home/watersss/JYD-RAS-V2/JYD-contest/npc”
     目标预测错误率         : 0.000000
     乘法平均周期           : 0.000000
     除法平均周期           : 0.000000
-
-##jyd_src2
+```
+## jyd_src2
+```text
 [perf]  cycles=2758548941 inst=1849099373 time=3291.044 s
 [CPI] 1.49
 [ifu]
@@ -408,3 +413,4 @@ make[1]: 离开目录“/home/watersss/JYD-RAS-V2/JYD-contest/npc”
     目标预测错误率         : 0.000000
     乘法平均周期           : 0.000000
     除法平均周期           : 0.000000
+```
