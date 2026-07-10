@@ -9,15 +9,17 @@
 - 支持 TAGE/Gshare 不一致时的前端重定向修正
 
 ## 结构
----BPU.v：顶层
-  ----BTB.v：分支目标缓冲
-  ----RAS.v：返回地址栈
-  ----Gshare.v：快速方向预测器
-  ----TAGE.v：二级 TAGE 预测器
-  ----tao_define_ap.v：需要在tao_defines.v里添加的内容
----interface_in_pipeline.md：接口说明
----PERF.md：在coremark、jyd_src0、jyd_src1、jyd_src2下的表现（接入单发五级流水线core）
-
+```text
+.
+├── BPU.v                         # 顶层
+├── BTB.v                         # 分支目标缓冲
+├── Gshare.v                      # 快速方向预测器
+├── RAS.v                         # 返回地址栈
+├── TAGE.v                        # 二级 TAGE 预测器
+├── tao_define_ap.v               # 需添加到 tao_defines.v 的定义
+├── interface_in_pipeline.md      # 接口说明
+└── PERF.md                       # 性能测试结果
+```
 
 ## 问题
 TAGE预测器实现的是简化版本，缺少更好的fold--->index机制，缺少alternate机制（todo）！！导致性能并没有特别优秀
